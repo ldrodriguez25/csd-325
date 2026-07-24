@@ -12,42 +12,6 @@ class Todo(tk.Tk):
         else:
             self.tasks = tasks
 
-        # Window Settings
-        self.title("Rodriguez-ToDo")
-        self.geometry("400x500")
-
-        # File Menu
-        menu_bar = tk.Menu(self)
-
-        file_menu = tk.Menu(
-            menu_bar,
-            tearoff=0,
-            bg="navy",
-            fg="white"
-        )
-
-        file_menu.add_command(
-            label="Exit",
-            command=self.destroy
-        )
-
-        menu_bar.add_cascade(
-            label="File",
-            menu=file_menu
-        )
-
-        self.config(menu=menu_bar)
-
-        # Instructions Label
-        instructions = tk.Label(
-            self,
-            text="Right Click a Task to Delete It",
-            font=("Arial", 10, "bold"),
-            fg="navy"
-        )
-        instructions.pack(side=tk.TOP, pady=5)
-
-        # Frames and Canvas
         self.tasks_canvas = tk.Canvas(self)
         self.tasks_frame = tk.Frame(self.tasks_canvas)
         self.text_frame = tk.Frame(self)
@@ -62,7 +26,9 @@ class Todo(tk.Tk):
             yscrollcommand=self.scrollbar.set
         )
 
-        # Text Box for New Tasks
+        self.title("To-Do App v2")
+        self.geometry("300x400")
+
         self.task_create = tk.Text(
             self.text_frame,
             height=3,
@@ -70,7 +36,6 @@ class Todo(tk.Tk):
             fg="black"
         )
 
-        # Packing Widgets
         self.tasks_canvas.pack(
             side=tk.TOP,
             fill=tk.BOTH,
@@ -100,18 +65,16 @@ class Todo(tk.Tk):
 
         self.task_create.focus_set()
 
-        # Default Label
         todo1 = tk.Label(
             self.tasks_frame,
             text="--- Add Items Here ---",
-            bg="lightblue",
+            bg="lightgrey",
             fg="black",
             pady=10
         )
 
-        # RIGHT CLICK TO DELETE
         todo1.bind(
-            "<Button-3>",
+            "<Button-1>",
             self.remove_task
         )
 
@@ -123,7 +86,6 @@ class Todo(tk.Tk):
                 fill=tk.X
             )
 
-        # Bindings
         self.bind("<Return>", self.add_task)
         self.bind("<Configure>", self.on_frame_configure)
         self.bind_all("<MouseWheel>", self.mouse_scroll)
@@ -134,14 +96,13 @@ class Todo(tk.Tk):
             self.task_width
         )
 
-        # Complementary Colors
         self.colour_schemes = [
             {
-                "bg": "lightblue",
+                "bg": "lightgrey",
                 "fg": "black"
             },
             {
-                "bg": "navy",
+                "bg": "grey",
                 "fg": "white"
             }
         ]
@@ -166,9 +127,8 @@ class Todo(tk.Tk):
                 new_task
             )
 
-            # RIGHT CLICK TO DELETE
             new_task.bind(
-                "<Button-3>",
+                "<Button-1>",
                 self.remove_task
             )
 
